@@ -63,7 +63,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-22.04
-    needs: [build]  # Deployment-Job wird nur ausgeführt, wenn der Build erfolgreich ist
+    needs: [build]  # Deployment-Job wird nur ausgeführt, wenn der Build erfolgreich ist.
     steps:
       - name: Simulate deployment
         run: echo "Deployment successful"
