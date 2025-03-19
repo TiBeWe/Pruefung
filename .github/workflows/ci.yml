@@ -6,24 +6,64 @@ on:
       - main
 
 jobs:
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'  #  neueste stabile Node.js-Version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run linter
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: echo "npm run test" # npm run test, funktioniert bei mir nicht Missing script aber wäre richtig
+
   build:
     runs-on: ubuntu-22.04
-
+    needs: [lint, test]  # Build-Job wird nur ausgeführt, wenn Linting und Tests erfolgreich sind
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: npm i
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
 
-    - name: build the app
-      run: npm run build
+      - name: Install dependencies
+        run: npm install
 
-    - name: debug build folder
-      run: ls -la
+      - name: Build application
+        run: npm run build
 
-    - name: Run tests
-      run: echo "npm run test" # npm run test, funktioniert bei mir nicht Missing script aber wäre richtig
+      - name: Debug build folder
+        run: ls -la
 
-    - name: Lint code
-      run: npm run lint
+  deploy:
+    runs-on: ubuntu-22.04
+    needs: [build]  # Deployment-Job wird nur ausgeführt, wenn der Build erfolgreich ist
+    steps:
+      - name: Simulate deployment
+        run: echo "Deployment successful"
