@@ -21,3 +21,9 @@ jobs:
 
     - name: debug build folder
       run: ls -la
+
+    - name: Run tests
+      run: npm run test
+
+    - name: Lint code
+      run: npm run lint
