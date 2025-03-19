@@ -13,12 +13,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
+    - name: Install dependencies
+      run: npm i
 
-    - name: Install dependencies and build
-      run: |
-        npm install
-        npm run build
+    - name: build the app
+      run: npm run build
+
+    - name: debug build folder
+      run: ls -la
