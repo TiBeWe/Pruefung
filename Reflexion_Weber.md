@@ -15,3 +15,4 @@ Deployment passiert nur wenn der Build-Job erfolgreich war.
 
 Verbesserungsvorschläge:
 Setup Job einrichten um nicht immer die gleichen Schritte in jedem Job zu wiederholen.
+Integration von Docker Hub um das Image zu pushen.
